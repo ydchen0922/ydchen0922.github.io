@@ -48,9 +48,10 @@
         color: var(--text-main);
         background-color: var(--bg-body);
         line-height: 1.6;
+        -webkit-text-size-adjust: 100%;
       }
 
-      /* 頂部導航 */
+      /* 頂部導航列 */
       header {
         position: sticky;
         top: 0;
@@ -65,7 +66,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 1.5rem;
+        padding: 0.9rem 1.25rem;
+        position: relative;
       }
       .nav-brand {
         font-weight: 700;
@@ -73,6 +75,26 @@
         color: var(--primary);
         text-decoration: none;
         letter-spacing: -0.02em;
+        z-index: 1001;
+      }
+
+      /* 手機版漢堡按鈕 (預設隱藏，手機版顯示) */
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.4rem 0.6rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: var(--primary);
+        line-height: 1;
+        z-index: 1001;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
       }
       .nav-links a {
         margin-left: 1.5rem;
@@ -90,25 +112,21 @@
       main {
         max-width: 960px;
         margin: 2rem auto;
-        padding: 0 1.5rem;
+        padding: 0 1.25rem;
       }
 
       /* 個人形象卡片 */
       .profile-card {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        align-items: center;
+        text-align: center;
+        gap: 1.75rem;
         background: var(--card-bg);
-        padding: 2.5rem;
+        padding: 2rem 1.5rem;
         border-radius: 16px;
         border: 1px solid var(--border-color);
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
-      }
-      @media (min-width: 640px) {
-        .profile-card {
-          flex-direction: row;
-          align-items: center;
-        }
       }
       .profile-avatar {
         width: 180px;
@@ -134,17 +152,20 @@
         margin: 0.85rem 0 1.2rem;
         color: #334155;
         font-size: 0.95rem;
+        text-align: justify;
       }
       .social-links {
         display: flex;
         gap: 0.6rem;
         flex-wrap: wrap;
+        justify-content: center;
       }
       .badge-btn {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 0.4rem;
-        padding: 0.4rem 0.85rem;
+        padding: 0.45rem 0.85rem;
         font-size: 0.85rem;
         font-weight: 600;
         border-radius: 8px;
@@ -160,6 +181,22 @@
         border-color: var(--primary);
       }
 
+      /* 電腦版 Profile 佈局 (橫向排列) */
+      @media (min-width: 640px) {
+        .profile-card {
+          flex-direction: row;
+          text-align: left;
+          align-items: center;
+          padding: 2.5rem;
+        }
+        .profile-info .bio {
+          text-align: left;
+        }
+        .social-links {
+          justify-content: flex-start;
+        }
+      }
+
       /* 區塊標題 */
       section {
         margin-top: 3.5rem;
@@ -167,7 +204,7 @@
       .section-header {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.75rem;
         margin-bottom: 1.5rem;
         border-bottom: 2px solid var(--border-color);
         padding-bottom: 0.8rem;
@@ -217,6 +254,7 @@
         display: flex;
         align-items: center;
         gap: 0.4rem;
+        line-height: 1.4;
       }
       #conference-map {
         height: 380px;
@@ -225,10 +263,13 @@
         z-index: 1;
       }
 
-      /* 篩選標籤按鈕 */
+      /* 篩選標籤按鈕 (支援手機橫向滑動) */
       .filter-buttons {
         display: flex;
         gap: 0.5rem;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
       }
       .filter-btn {
         background: none;
@@ -239,6 +280,7 @@
         font-weight: 500;
         cursor: pointer;
         color: var(--text-muted);
+        white-space: nowrap;
         transition: all 0.2s;
       }
       .filter-btn.active,
@@ -257,13 +299,18 @@
       }
       .pub-item {
         background: var(--card-bg);
-        padding: 1.35rem 1.6rem;
+        padding: 1.25rem 1.4rem;
         border-radius: 12px;
         border: 1px solid var(--border-color);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
         transition:
           transform 0.15s ease,
           box-shadow 0.15s ease;
+      }
+      @media (min-width: 640px) {
+        .pub-item {
+          padding: 1.35rem 1.6rem;
+        }
       }
       .pub-item:hover {
         transform: translateY(-2px);
@@ -297,16 +344,18 @@
         color: var(--text-muted);
       }
       .pub-title {
-        font-size: 1.08rem;
+        font-size: 1.05rem;
         font-weight: 600;
         color: #0f172a;
         line-height: 1.45;
         margin-bottom: 0.35rem;
+        word-break: break-word;
       }
       .pub-authors {
         font-size: 0.92rem;
         color: #475569;
         margin-bottom: 0.3rem;
+        word-break: break-word;
       }
       .pub-authors .author-self {
         font-weight: 700;
@@ -334,8 +383,8 @@
         text-decoration: none;
         border: 1px solid #bfdbfe;
         background: #eff6ff;
-        padding: 0.25rem 0.6rem;
-        border-radius: 5px;
+        padding: 0.3rem 0.65rem;
+        border-radius: 6px;
         transition: all 0.2s;
       }
       .pub-link:hover {
@@ -353,7 +402,7 @@
       }
       .project-item {
         background: var(--card-bg);
-        padding: 1.25rem 1.5rem;
+        padding: 1.25rem 1.4rem;
         border-radius: 12px;
         border: 1px solid var(--border-color);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
@@ -368,43 +417,67 @@
       .project-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
+        align-items: flex-start;
+        flex-direction: column;
         gap: 0.5rem;
         margin-bottom: 0.5rem;
+      }
+      @media (min-width: 640px) {
+        .project-header {
+          flex-direction: row;
+          align-items: center;
+        }
       }
       .project-badges {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.4rem;
+        flex-wrap: wrap;
       }
       .project-year {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 700;
         color: var(--primary);
         background: #eff6ff;
         border: 1px solid #bfdbfe;
-        padding: 0.2rem 0.6rem;
+        padding: 0.2rem 0.55rem;
         border-radius: 6px;
+        white-space: nowrap;
       }
       .project-category {
         font-size: 0.75rem;
         font-weight: 600;
         color: #475569;
         background: #f1f5f9;
-        padding: 0.2rem 0.55rem;
+        padding: 0.2rem 0.5rem;
         border-radius: 6px;
       }
       .project-funding {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
         font-weight: 600;
         color: #0369a1;
       }
       .project-title {
-        font-size: 1.02rem;
+        font-size: 1rem;
         font-weight: 600;
         color: var(--text-main);
         line-height: 1.5;
+        word-break: break-word;
+      }
+
+      /* 聯絡資訊卡片 */
+      .contact-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        line-height: 1.8;
+        word-break: break-word;
+      }
+      @media (min-width: 640px) {
+        .contact-card {
+          padding: 1.8rem;
+        }
       }
 
       footer {
@@ -413,19 +486,81 @@
         color: #94a3b8;
         font-size: 0.85rem;
       }
+
+      /* ========================================================
+         手機版專屬響應式優化 (Mobile Media Queries < 640px)
+         ======================================================== */
+      @media (max-width: 639px) {
+        .menu-toggle {
+          display: block; /* 顯示手機版漢堡按鈕 */
+        }
+        .nav-links {
+          display: none; /* 預設收合 */
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1rem 1.25rem;
+          border-bottom: 1px solid var(--border-color);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+          gap: 0.85rem;
+        }
+        .nav-links.open {
+          display: flex; /* 點擊漢堡按鈕後展開 */
+        }
+        .nav-links a {
+          margin-left: 0;
+          font-size: 1.05rem;
+          width: 100%;
+          padding: 0.3rem 0;
+        }
+
+        .profile-card {
+          padding: 1.75rem 1.25rem;
+        }
+        .profile-avatar {
+          width: 120px;
+          height: 120px;
+        }
+        .profile-info h1 {
+          font-size: 1.55rem;
+        }
+        .social-links .badge-btn {
+          flex: 1 1 calc(50% - 0.4rem); /* 手機上按鈕並排或均分 */
+        }
+
+        #conference-map {
+          height: 280px; /* 手機端地圖高度微縮，瀏覽體驗更順暢 */
+        }
+        .section-title {
+          font-size: 1.25rem;
+        }
+      }
     </style>
   </head>
   <body>
-    <!-- 導航列 -->
+    <!-- 頂部導航列 (支援手機漢堡選單) -->
     <header>
       <nav>
         <a href="#" class="nav-brand">Yen-Da Chen</a>
-        <div class="nav-links">
-          <a href="#about">關於</a>
-          <a href="#research">研究領域</a>
-          <a href="#publications">學術著作 (30)</a>
-          <a href="#projects">執行計畫</a>
-          <a href="#contact">聯絡</a>
+        <!-- 手機版漢堡切換按鈕 -->
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Toggle navigation"
+        >
+          ☰
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="#about" onclick="closeMenu()">關於</a>
+          <a href="#research" onclick="closeMenu()">研究領域</a>
+          <a href="#publications" onclick="closeMenu()">學術著作</a>
+          <a href="#projects" onclick="closeMenu()">執行計畫</a>
+          <a href="#contact" onclick="closeMenu()">聯絡</a>
         </div>
       </nav>
     </header>
@@ -450,9 +585,9 @@
               href="https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=Yen-Da%20Chen"
               target="_blank"
               class="badge-btn"
-              >⚡ IEEE Xplore Profile</a
+              >⚡ IEEE Xplore</a
             >
-            <a href="#publications" class="badge-btn">📚 著作清單（30 篇）</a>
+            <a href="#publications" class="badge-btn">📚 著作 (30)</a>
             <a href="#projects" class="badge-btn">📑 執行計畫</a>
             <a href="mailto:your.email@university.edu" class="badge-btn"
               >✉️ 聯絡信箱</a
@@ -1322,7 +1457,6 @@
             <div class="project-header">
               <div class="project-badges">
                 <span class="project-year">教育部計畫</span>
-                <span class="project-year">115 年度</span>
                 <span class="project-category">教學實踐研究計畫</span>
               </div>
             </div>
@@ -1335,7 +1469,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">112 年度</span>
                 <span class="project-category"
                   >補助國內專家學者出席國際學術會議</span
@@ -1352,7 +1485,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">107 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (一般研究計畫)</span
@@ -1370,7 +1502,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">106 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (一般研究計畫)</span
@@ -1388,7 +1519,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">105 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (一般研究計畫)</span
@@ -1406,7 +1536,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">104 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (一般研究計畫)</span
@@ -1424,7 +1553,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">103 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (一般研究計畫)</span
@@ -1441,7 +1569,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">102 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (新進人員研究計畫)</span
@@ -1458,7 +1585,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">101 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (新進人員研究計畫)</span
@@ -1475,7 +1601,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">100 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (新進人員研究計畫)</span
@@ -1492,7 +1617,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">99 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (新進人員研究計畫)</span
@@ -1509,7 +1633,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">98 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (新進人員研究計畫)</span
@@ -1526,7 +1649,6 @@
           <li class="project-item">
             <div class="project-header">
               <div class="project-badges">
-                <span class="project-year">國科會計畫</span>
                 <span class="project-year">97 年度</span>
                 <span class="project-category"
                   >專題研究計畫 (新進人員研究計畫)</span
@@ -1546,15 +1668,7 @@
         <div class="section-header">
           <h2 class="section-title">聯絡資訊 (Contact)</h2>
         </div>
-        <div
-          style="
-            background: white;
-            padding: 1.8rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            line-height: 1.8;
-          "
-        >
+        <div class="contact-card">
           <p>
             <strong>個人信箱：</strong>
             <a
@@ -1563,7 +1677,7 @@
               >ydchen@mail.lhu.edu.tw</a
             >
           </p>
-          <p><strong>研究室 / 辦公室：</strong> 龍華科技大學F316</p>
+          <p><strong>研究室 / 辦公室：</strong> 請填入您的學校與辦公室位置</p>
         </div>
       </section>
     </main>
@@ -1578,9 +1692,23 @@
       crossorigin=""
     ></script>
 
-    <!-- 地圖與分類篩選互動邏輯 -->
+    <!-- 響應式選單、地圖與分類篩選互動邏輯 -->
     <script>
-      // 1. 論文分類切換
+      // 1. 手機版漢堡選單展開/收合控制
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("open");
+      });
+
+      function closeMenu() {
+        if (window.innerWidth < 640) {
+          navLinks.classList.remove("open");
+        }
+      }
+
+      // 2. 論文分類切換
       function filterPubs(type) {
         const buttons = document.querySelectorAll(".filter-btn");
         buttons.forEach((btn) => btn.classList.remove("active"));
@@ -1598,11 +1726,11 @@
         });
       }
 
-      // 2. 初始化世界地圖
+      // 3. 初始化世界地圖
       document.addEventListener("DOMContentLoaded", function () {
         const map = L.map("conference-map", {
           center: [25.0, 15.0],
-          zoom: 2,
+          zoom: window.innerWidth < 640 ? 1 : 2, // 手機預設更廣視角
           minZoom: 1,
           maxZoom: 10,
           scrollWheelZoom: false, // 避免滾動頁面時誤縮放
