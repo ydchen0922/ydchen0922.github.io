@@ -10,6 +10,12 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Leaflet.js 地圖樣式庫 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
     <style>
       :root {
         --primary: #1e3a8a;
@@ -51,7 +57,7 @@
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--border-color);
-        z-index: 100;
+        z-index: 1000;
       }
       nav {
         max-width: 960px;
@@ -105,17 +111,13 @@
         }
       }
       .profile-avatar {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #1e3a8a, #38bdf8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 2.2rem;
-        font-weight: 700;
+        width: 180px;
+        height: 230px;
+        border-radius: 12px;
+        object-fit: cover;
+        object-position: center;
         flex-shrink: 0;
+        border: 3px solid #ffffff;
         box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
       }
       .profile-info h1 {
@@ -183,6 +185,46 @@
         font-weight: 700;
       }
 
+      /* 研究關鍵字標籤 */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .tag {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 500;
+      }
+
+      /* 地圖容器樣式 */
+      .map-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+      }
+      .map-caption {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      #conference-map {
+        height: 380px;
+        width: 100%;
+        border-radius: 8px;
+        z-index: 1;
+      }
+
       /* 篩選標籤按鈕 */
       .filter-buttons {
         display: flex;
@@ -204,22 +246,6 @@
         background: var(--primary-light);
         color: white;
         border-color: var(--primary-light);
-      }
-
-      /* 研究關鍵字標籤 */
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      .tag {
-        background: #eff6ff;
-        color: #1d4ed8;
-        border: 1px solid #bfdbfe;
-        padding: 0.35rem 0.85rem;
-        border-radius: 999px;
-        font-size: 0.88rem;
-        font-weight: 500;
       }
 
       /* 論文列表 */
@@ -376,15 +402,12 @@
           <h2 class="section-title">研究領域 (Research Interests)</h2>
         </div>
         <div class="tags">
-          <span class="tag">Wireless MAC Protocols (媒體存取控制)</span>
           <span class="tag">Underwater Acoustic Networks (水下聲波感測)</span>
           <span class="tag">IEEE 802.11ax / 802.11ac Next-Gen WLANs</span>
           <span class="tag"
             >Full-Duplex Wireless Communications (全雙工通訊)</span
           >
           <span class="tag">Mobile Ad Hoc & Sensor Networks (MANET / WSN)</span>
-          <span class="tag">Power Control & Collision Avoidance</span>
-          <span class="tag">Cooperative Routing Protocols</span>
         </div>
       </section>
 
@@ -403,6 +426,18 @@
               會議論文 (28)
             </button>
           </div>
+        </div>
+
+        <!-- 研討會舉辦地 世界地圖 -->
+        <div class="map-card">
+          <div class="map-caption">
+            <span
+              >📍
+              <strong>國際學術會議足跡 (Conference Locations)</strong
+              >：點擊地圖上的圖釘可查看該城市發表的代表論文。</span
+            >
+          </div>
+          <div id="conference-map"></div>
         </div>
 
         <ul class="pub-list" id="publication-list">
@@ -1250,8 +1285,15 @@
       <p>&copy; Yen-Da Chen. Powered by HTML5 &amp; CSS3.</p>
     </footer>
 
-    <!-- 篩選器互動腳本 -->
+    <!-- Leaflet.js 腳本 -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin=""
+    ></script>
+
+    <!-- 地圖與分類篩選互動邏輯 -->
     <script>
+      // 1. 論文分類切換
       function filterPubs(type) {
         const buttons = document.querySelectorAll(".filter-btn");
         buttons.forEach((btn) => btn.classList.remove("active"));
@@ -1268,6 +1310,119 @@
           }
         });
       }
+
+      // 2. 初始化世界地圖
+      document.addEventListener("DOMContentLoaded", function () {
+        const map = L.map("conference-map", {
+          center: [25.0, 15.0],
+          zoom: 2,
+          minZoom: 1,
+          maxZoom: 10,
+          scrollWheelZoom: false, // 避免滾動頁面時誤縮放
+        });
+
+        // 載入 OpenStreetMap 地圖圖磚
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
+
+        // 研討會舉辦城市座標與論文資訊
+        const confLocations = [
+          {
+            city: "台北 (Taipei, Taiwan)",
+            lat: 25.033,
+            lng: 121.5654,
+            detail:
+              "<b>OCEANS 2014 - TAIPEI</b><br>A channel-aware depth-adaptive routing protocol for UWSNs",
+          },
+          {
+            city: "美國夏威夷可納 (Kona, Hawaii, USA)",
+            lat: 19.6399,
+            lng: -155.9969,
+            detail:
+              "<b>OCEANS'11 MTS/IEEE KONA</b> (2011)<br>• Stair-like NAV underwater acoustic networks<br>• CS-MAC protocol",
+          },
+          {
+            city: "西班牙桑坦德 (Santander, Spain)",
+            lat: 43.4623,
+            lng: -3.8099,
+            detail:
+              "<b>OCEANS 2011 IEEE - Spain</b><br>DSSS: Dynamic Slot Scheduling for underwater acoustic networks",
+          },
+          {
+            city: "韓國麗水 (Yeosu, South Korea)",
+            lat: 34.7604,
+            lng: 127.6622,
+            detail:
+              "<b>OCEANS 2012 - Yeosu</b><br>DARP: Depth adaptive routing protocol",
+          },
+          {
+            city: "挪威卑爾根 (Bergen, Norway)",
+            lat: 60.3913,
+            lng: 5.3221,
+            detail:
+              "<b>OCEANS 2013 - Bergen</b><br>TLPC: Two-level power control MAC protocol",
+          },
+          {
+            city: "美國華盛頓特區 (Washington, D.C., USA)",
+            lat: 38.9072,
+            lng: -77.0369,
+            detail:
+              "<b>OCEANS 2015 MTS/IEEE Washington</b><br>Self-Adaptive Cooperative Routing Protocol",
+          },
+          {
+            city: "英國倫敦 / 歐洲 (ICC 2015)",
+            lat: 51.5074,
+            lng: -0.1278,
+            detail:
+              "<b>IEEE ICC 2015</b><br>Emergency message dissemination protocol for VANETs",
+          },
+          {
+            city: "法國巴黎 (ICC 2004)",
+            lat: 48.8566,
+            lng: 2.3522,
+            detail:
+              "<b>IEEE ICC 2004</b><br>AMNP: ad hoc multichannel negotiation protocol",
+          },
+          {
+            city: "中國成都 (Chengdu, China)",
+            lat: 30.5728,
+            lng: 104.0668,
+            detail:
+              "<b>ICET 2018</b><br>In-band full duplex MAC protocol for next generation WLANs",
+          },
+          {
+            city: "新加坡 (Singapore)",
+            lat: 1.3521,
+            lng: 103.8198,
+            detail:
+              "<b>ICON 2004 / WCNC Series</b><br>Distributed slots reservation protocol for QoS routing",
+          },
+          {
+            city: "義大利撒丁島 (Cagliari, Italy)",
+            lat: 39.2238,
+            lng: 9.1217,
+            detail:
+              "<b>IEEE ISCC 2006</b><br>Distributed Active Sensor Selection Scheme for WSN",
+          },
+          {
+            city: "澳洲伯斯 (Perth, Australia)",
+            lat: -31.9505,
+            lng: 115.8605,
+            detail:
+              "<b>IEEE AINA 2017</b><br>Full-View Area Coverage by Rotatable Cameras in WSN",
+          },
+        ];
+
+        // 在地圖上批量插圖釘
+        confLocations.forEach((loc) => {
+          const marker = L.marker([loc.lat, loc.lng]).addTo(map);
+          marker.bindPopup(
+            `<strong>${loc.city}</strong><hr style="margin:4px 0;">${loc.detail}`,
+          );
+        });
+      });
     </script>
   </body>
 </html>
