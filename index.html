@@ -344,6 +344,69 @@
         border-color: var(--primary-light);
       }
 
+      /* 執行計畫樣式 */
+      .project-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .project-item {
+        background: var(--card-bg);
+        padding: 1.25rem 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .project-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .project-badges {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .project-year {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--primary);
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+      }
+      .project-category {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #475569;
+        background: #f1f5f9;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+      }
+      .project-funding {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #0369a1;
+      }
+      .project-title {
+        font-size: 1.02rem;
+        font-weight: 600;
+        color: var(--text-main);
+        line-height: 1.5;
+      }
+
       footer {
         text-align: center;
         padding: 3rem 1rem 2rem;
@@ -361,6 +424,7 @@
           <a href="#about">關於</a>
           <a href="#research">研究領域</a>
           <a href="#publications">學術著作 (30)</a>
+          <a href="#projects">執行計畫</a>
           <a href="#contact">聯絡</a>
         </div>
       </nav>
@@ -389,6 +453,7 @@
               >⚡ IEEE Xplore Profile</a
             >
             <a href="#publications" class="badge-btn">📚 著作清單（30 篇）</a>
+            <a href="#projects" class="badge-btn">📑 執行計畫</a>
             <a href="mailto:your.email@university.edu" class="badge-btn"
               >✉️ 聯絡信箱</a
             >
@@ -1245,6 +1310,237 @@
         </ul>
       </section>
 
+      <!-- 執行計畫 -->
+      <section id="projects">
+        <div class="section-header">
+          <h2 class="section-title">執行計畫 (Research Grants & Projects)</h2>
+        </div>
+
+        <ul class="project-list">
+          <!-- 教育部計畫 -->
+          <li class="project-item" style="border-left: 4px solid #2563eb">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">教育部計畫</span>
+                <span class="project-year">115 年度</span>
+                <span class="project-category">教學實踐研究計畫</span>
+              </div>
+            </div>
+            <div class="project-title">
+              解鎖數學靈魂：融入通訊與AI場域之離散數學Python實作教學實踐
+            </div>
+          </li>
+
+          <!-- 112 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">112 年度</span>
+                <span class="project-category"
+                  >補助國內專家學者出席國際學術會議</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 50,000</div>
+            </div>
+            <div class="project-title">
+              International Conference on Ubiquitous and Future Networks (ICUFN)
+            </div>
+          </li>
+
+          <!-- 107 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">107 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (一般研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 701,000</div>
+            </div>
+            <div class="project-title">
+              非對稱式IEEE 802.11無線區域網路中以In-Band
+              Full-Duplex傳輸技術為考量之傳輸協定設計與製作
+            </div>
+          </li>
+
+          <!-- 106 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">106 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (一般研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 731,000</div>
+            </div>
+            <div class="project-title">
+              IEEE
+              802.11ac無線區域網路中使用Full-Duplex傳輸技術下以增進傳輸效能為考量之傳輸協定設計與製作
+            </div>
+          </li>
+
+          <!-- 105 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">105 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (一般研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 602,000</div>
+            </div>
+            <div class="project-title">
+              IEEE 802.11ac無線區域網路中在使用Channel
+              Bonding技術下以增進頻道利用率為考量之傳輸協定設計與製作
+            </div>
+          </li>
+
+          <!-- 104 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">104 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (一般研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 471,000</div>
+            </div>
+            <div class="project-title">
+              IEEE
+              802.11ac無線區域網路中以避免傳輸碰狀為考量之媒介存取控制協定設計與製作
+            </div>
+          </li>
+
+          <!-- 103 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">103 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (一般研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 549,000</div>
+            </div>
+            <div class="project-title">
+              水下無線聲波網路中以傳輸頻率為考量之傳輸協定研究與設計
+            </div>
+          </li>
+
+          <!-- 102 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">102 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (新進人員研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 510,000</div>
+            </div>
+            <div class="project-title">
+              水下無線聲波感測網路中以避免資料傳輸碰狀為考量之傳輸協定研究與設計
+            </div>
+          </li>
+
+          <!-- 101 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">101 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (新進人員研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 499,000</div>
+            </div>
+            <div class="project-title">
+              水下無線聲波感測網路中以協同合作為考量之傳輸協定研究與設計
+            </div>
+          </li>
+
+          <!-- 100 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">100 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (新進人員研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 499,000</div>
+            </div>
+            <div class="project-title">
+              水下無線聲波感測網路中以延遲為考量之路由協定研究與設計
+            </div>
+          </li>
+
+          <!-- 099 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">99 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (新進人員研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 678,000</div>
+            </div>
+            <div class="project-title">
+              水下無線聲納感測網路中以能源考量之媒介存取控制協定研究與設計
+            </div>
+          </li>
+
+          <!-- 098 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">98 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (新進人員研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 455,000</div>
+            </div>
+            <div class="project-title">
+              無線隨建即連網路下以避免資料傳輸碰狀為原則之電量控制媒介存取協定設計與製作
+            </div>
+          </li>
+
+          <!-- 097 年度 -->
+          <li class="project-item">
+            <div class="project-header">
+              <div class="project-badges">
+                <span class="project-year">國科會計畫</span>
+                <span class="project-year">97 年度</span>
+                <span class="project-category"
+                  >專題研究計畫 (新進人員研究計畫)</span
+                >
+              </div>
+              <div class="project-funding">核定經費：NT$ 473,000</div>
+            </div>
+            <div class="project-title">
+              無線隨建即連網路下以單一天線考量之多重頻道媒介存取控制協定設計與製作
+            </div>
+          </li>
+        </ul>
+      </section>
+
       <!-- 聯絡方式 -->
       <section id="contact">
         <div class="section-header">
@@ -1262,21 +1558,12 @@
           <p>
             <strong>個人信箱：</strong>
             <a
-              href="mailto:your.email@university.edu"
+              href="mailto:ydchen@mail.lhu.edu.tw"
               style="color: var(--primary-light)"
-              >your.email@university.edu</a
+              >ydchen@mail.lhu.edu.tw</a
             >
           </p>
-          <p><strong>研究室 / 辦公室：</strong> 請填入您的學校與辦公室位置</p>
-          <p>
-            <strong>外部主頁：</strong>
-            <a
-              href="https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=Yen-Da%20Chen"
-              target="_blank"
-              style="color: var(--primary-light)"
-              >IEEE Xplore Author Profile ↗</a
-            >
-          </p>
+          <p><strong>研究室 / 辦公室：</strong> 龍華科技大學F316</p>
         </div>
       </section>
     </main>
