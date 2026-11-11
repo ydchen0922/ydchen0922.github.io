@@ -1,17 +1,1273 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>陳彥達 (Yen-Da Chen) | 個人學術首頁</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #1e3a8a;
+        --primary-light: #2563eb;
+        --primary-accent: #0284c7;
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --bg-body: #f8fafc;
+        --border-color: #e2e8f0;
+        --card-bg: #ffffff;
+        --badge-journal: #dbeafe;
+        --badge-journal-text: #1d4ed8;
+        --badge-conf: #f1f5f9;
+        --badge-conf-text: #475569;
+      }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        color: var(--text-main);
+        background-color: var(--bg-body);
+        line-height: 1.6;
+      }
 
-<body>
+      /* 頂部導航 */
+      header {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+      }
+      nav {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+      }
+      .nav-brand {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--primary);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+      .nav-links a {
+        margin-left: 1.5rem;
+        text-decoration: none;
+        color: var(--text-muted);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--primary-light);
+      }
 
-    <h1>這是我的第一個網頁程式</h1>
-    <h2>字體變小了</h2>
+      /* 主容器 */
+      main {
+        max-width: 960px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+      }
 
-</body>
+      /* 個人形象卡片 */
+      .profile-card {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        background: var(--card-bg);
+        padding: 2.5rem;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+      }
+      @media (min-width: 640px) {
+        .profile-card {
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+      .profile-avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1e3a8a, #38bdf8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2.2rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+      }
+      .profile-info h1 {
+        font-size: 1.85rem;
+        color: var(--primary);
+        margin-bottom: 0.25rem;
+      }
+      .profile-info .title {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+      .profile-info .bio {
+        margin: 0.85rem 0 1.2rem;
+        color: #334155;
+        font-size: 0.95rem;
+      }
+      .social-links {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .badge-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.85rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 8px;
+        text-decoration: none;
+        background: #f1f5f9;
+        color: var(--primary);
+        border: 1px solid var(--border-color);
+        transition: all 0.2s;
+      }
+      .badge-btn:hover {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+      }
 
+      /* 區塊標題 */
+      section {
+        margin-top: 3.5rem;
+      }
+      .section-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+      @media (min-width: 640px) {
+        .section-header {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-end;
+        }
+      }
+      .section-title {
+        font-size: 1.45rem;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      /* 篩選標籤按鈕 */
+      .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .filter-btn {
+        background: none;
+        border: 1px solid var(--border-color);
+        padding: 0.35rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s;
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary-light);
+        color: white;
+        border-color: var(--primary-light);
+      }
+
+      /* 研究關鍵字標籤 */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .tag {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 500;
+      }
+
+      /* 論文列表 */
+      .pub-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+      }
+      .pub-item {
+        background: var(--card-bg);
+        padding: 1.35rem 1.6rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .pub-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      }
+      .pub-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 0.45rem;
+      }
+      .badge-type {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        letter-spacing: 0.04em;
+      }
+      .badge-type.journal {
+        background-color: var(--badge-journal);
+        color: var(--badge-journal-text);
+      }
+      .badge-type.conference {
+        background-color: var(--badge-conf);
+        color: var(--badge-conf-text);
+      }
+      .pub-year {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+      .pub-title {
+        font-size: 1.08rem;
+        font-weight: 600;
+        color: #0f172a;
+        line-height: 1.45;
+        margin-bottom: 0.35rem;
+      }
+      .pub-authors {
+        font-size: 0.92rem;
+        color: #475569;
+        margin-bottom: 0.3rem;
+      }
+      .pub-authors .author-self {
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .pub-venue {
+        font-size: 0.88rem;
+        color: #64748b;
+        font-style: italic;
+        margin-bottom: 0.65rem;
+      }
+      .pub-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .pub-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--primary-light);
+        text-decoration: none;
+        border: 1px solid #bfdbfe;
+        background: #eff6ff;
+        padding: 0.25rem 0.6rem;
+        border-radius: 5px;
+        transition: all 0.2s;
+      }
+      .pub-link:hover {
+        background: var(--primary-light);
+        color: white;
+        border-color: var(--primary-light);
+      }
+
+      footer {
+        text-align: center;
+        padding: 3rem 1rem 2rem;
+        color: #94a3b8;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 導航列 -->
+    <header>
+      <nav>
+        <a href="#" class="nav-brand">Yen-Da Chen</a>
+        <div class="nav-links">
+          <a href="#about">關於</a>
+          <a href="#research">研究領域</a>
+          <a href="#publications">學術著作 (30)</a>
+          <a href="#contact">聯絡</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 個人簡介區塊 -->
+      <section id="about" class="profile-card">
+        <img src="test.jpg" alt="陳彥達 Yen-Da Chen" class="profile-avatar" />
+        <div class="profile-info">
+          <h1>陳彥達 (Yen-Da Chen)</h1>
+          <p class="title">研究學者 / 通訊與分散式網路研究領域</p>
+          <p class="bio">
+            長期專注於<strong
+              >無線區域網路（IEEE 802.11 ax/ac）、無線隨意網路（Ad Hoc
+              Networks）、水下聲波感測網路（Underwater Acoustic Sensor
+              Networks）</strong
+            >及<strong>高效能 MAC 協定設計與功率控制</strong
+            >研究。致力於推動無線傳輸效率、防碰撞排程與全雙工通訊架構。
+          </p>
+          <div class="social-links">
+            <a
+              href="https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=Yen-Da%20Chen"
+              target="_blank"
+              class="badge-btn"
+              >⚡ IEEE Xplore Profile</a
+            >
+            <a href="#publications" class="badge-btn">📚 著作清單（30 篇）</a>
+            <a href="mailto:your.email@university.edu" class="badge-btn"
+              >✉️ 聯絡信箱</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 研究領域 -->
+      <section id="research">
+        <div class="section-header">
+          <h2 class="section-title">研究領域 (Research Interests)</h2>
+        </div>
+        <div class="tags">
+          <span class="tag">Wireless MAC Protocols (媒體存取控制)</span>
+          <span class="tag">Underwater Acoustic Networks (水下聲波感測)</span>
+          <span class="tag">IEEE 802.11ax / 802.11ac Next-Gen WLANs</span>
+          <span class="tag"
+            >Full-Duplex Wireless Communications (全雙工通訊)</span
+          >
+          <span class="tag">Mobile Ad Hoc & Sensor Networks (MANET / WSN)</span>
+          <span class="tag">Power Control & Collision Avoidance</span>
+          <span class="tag">Cooperative Routing Protocols</span>
+        </div>
+      </section>
+
+      <!-- 著作清單 -->
+      <section id="publications">
+        <div class="section-header">
+          <h2 class="section-title">學術著作 (Publications)</h2>
+          <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterPubs('all')">
+              全部 (30)
+            </button>
+            <button class="filter-btn" onclick="filterPubs('journal')">
+              期刊論文 (2)
+            </button>
+            <button class="filter-btn" onclick="filterPubs('conference')">
+              會議論文 (28)
+            </button>
+          </div>
+        </div>
+
+        <ul class="pub-list" id="publication-list">
+          <!-- 2023 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2023</span>
+            </div>
+            <div class="pub-title">
+              A Cluster-Based OFDMA MAC Protocol using Carrier-Sensing Scheme
+              for IEEE 802.11ax WLANs
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Lin, Jia-Wei,
+              Hsueh, Mu-Hua, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2023 14th International Conference on Ubiquitous and Future
+              Networks (ICUFN), pp. 198-200.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICUFN57995.2023.10199494"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2019 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2019</span>
+            </div>
+            <div class="pub-title">
+              FFD: A Fragmentation-based Full-Duplex MAC Protocol for Asymmetric
+              IEEE 802.11 WLANs
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Cao, Jie-Min, Chen,
+              I-Ju, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2019 11th International Conference on Ubiquitous and Future
+              Networks (ICUFN), pp. 387-389.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICUFN.2019.8806073"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2018 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2018</span>
+            </div>
+            <div class="pub-title">
+              An In-band full duplex MAC protocol with interference free for
+              next generation WLANs
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Chen, I-Ju, and
+              Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2018 International Conference on Electronics Technology (ICET),
+              pp. 407-410.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ELTECH.2018.8401413"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2018</span>
+            </div>
+            <div class="pub-title">
+              DBS: A dynamic bandwidth selection MAC protocol for channel
+              bonding in IEEE 802.11ac WLANs
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Wu, De-Ren, Sung,
+              Ti-Chun, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2018 IEEE Wireless Communications and Networking Conference
+              (WCNC), pp. 1-6.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WCNC.2018.8377414"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2017 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2017</span>
+            </div>
+            <div class="pub-title">
+              A channel bonding MAC protocol for IEEE 802.11ac WLANs
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Chuang, Chia, and
+              Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2017 9th International Conference on Ubiquitous and Future
+              Networks (ICUFN), pp. 839-841.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICUFN.2017.7993917"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2017</span>
+            </div>
+            <div class="pub-title">
+              On Full-View Area Coverage by Rotatable Cameras in Wireless Camera
+              Sensor Networks
+            </div>
+            <div class="pub-authors">
+              Hsiao, Yang-Pu, Shih, Kuei-Ping, and
+              <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              2017 IEEE 31st International Conference on Advanced Information
+              Networking and Applications (AINA), pp. 260-265.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/AINA.2017.104"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2016 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2016</span>
+            </div>
+            <div class="pub-title">
+              Design and implementation of a ZigBee-based emulation platform for
+              underwater acoustic sensor networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Chiang, Ching-Hui,
+              Chuang, Chia, Wang, San-Yuan, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2016 International Conference On Communication Problem-Solving
+              (ICCP), pp. 1-2.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICCPS.2016.7751125"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2016</span>
+            </div>
+            <div class="pub-title">
+              On a Tangible Interface in Interactive Media Display Using Mobile
+              Phones
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, Hsu, Su-Chu,
+              <span class="author-self">Chen, Yen-Da</span>, Hsiao, Yang-Pu, and
+              Martinez, Ramon Dario Borja
+            </div>
+            <div class="pub-venue">
+              2016 International Conference on Networking and Network
+              Applications (NaNA), pp. 141-144.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/NaNA.2016.59"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2015 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2015</span>
+            </div>
+            <div class="pub-title">
+              A Self-Adaptive Cooperative Routing Protocol for underwater
+              acoustic sensor networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Wu, De-Ren, Chen,
+              Wei, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              OCEANS 2015 - MTS/IEEE Washington, pp. 1-5.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.23919/OCEANS.2015.7404383"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2015</span>
+            </div>
+            <div class="pub-title">
+              An emergency message dissemination protocol using N-way search
+              with power control for VANETs
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Shih, Yi-Ping, and
+              Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2015 IEEE International Conference on Communications (ICC), pp.
+              3653-3658.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICC.2015.7248892"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2014 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2014</span>
+            </div>
+            <div class="pub-title">
+              A channel-aware depth-adaptive routing protocol for underwater
+              acoustic sensor networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Chen, Yu-Wei, Lien,
+              Chan-Ying, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">OCEANS 2014 - TAIPEI, pp. 1-6.</div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/OCEANS-TAIPEI.2014.6964460"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2014</span>
+            </div>
+            <div class="pub-title">
+              Link quality aware routing protocol for low-power and lossy
+              networks
+            </div>
+            <div class="pub-authors">
+              Wang, Sheng-Shih, Liu, Hsing-Tsai, and
+              <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              2014 IEEE Wireless Communications and Networking Conference
+              (WCNC), pp. 2588-2593.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WCNC.2014.6952816"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2014</span>
+            </div>
+            <div class="pub-title">
+              3M: A multi-group multi-pipeline multi-channel MAC protocol for
+              wireless ad hoc networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Wang, Shang-Hui,
+              and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">
+              2014 IEEE Wireless Communications and Networking Conference
+              (WCNC), pp. 1750-1755.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WCNC.2014.6952514"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2013 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2013</span>
+            </div>
+            <div class="pub-title">
+              TLPC: A two-level power control MAC protocol for collision
+              avoidance in underwater acoustic networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Lien, Chan-Ying,
+              Fang, Yan-Siang, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">2013 MTS/IEEE OCEANS - Bergen, pp. 1-6.</div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/OCEANS-Bergen.2013.6607984"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2012 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2012</span>
+            </div>
+            <div class="pub-title">
+              DARP: A depth adaptive routing protocol for large-scale underwater
+              acoustic sensor networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Lien, Chan-Ying,
+              Wang, Ching-Hung, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">2012 Oceans - Yeosu, pp. 1-6.</div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/OCEANS-Yeosu.2012.6263505"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2011 -->
+          <li class="pub-item journal">
+            <div class="pub-meta">
+              <span class="badge-type journal">Journal</span>
+              <span class="pub-year">2011</span>
+            </div>
+            <div class="pub-title">
+              A Physical/Virtual Carrier-Sense-Based Power Control MAC Protocol
+              for Collision Avoidance in Wireless Ad Hoc Networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, <span class="author-self">Chen, Yen-Da</span>,
+              and Chang, Chau-Chieh
+            </div>
+            <div class="pub-venue">
+              IEEE Transactions on Parallel and Distributed Systems (TPDS), Vol.
+              22, No. 2, pp. 193-207.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/TPDS.2010.75"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2011</span>
+            </div>
+            <div class="pub-title">
+              On enhancing four-way handshake with stair-like NAV setting for
+              underwater acoustic networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Li, Chun-Chih, Dai,
+              Rui-Ting, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">OCEANS'11 MTS/IEEE KONA, pp. 1-6.</div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.23919/OCEANS.2011.6107256"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2011</span>
+            </div>
+            <div class="pub-title">
+              CS-MAC: A Channel Stealing MAC protocol for improving bandwidth
+              utilization in underwater wireless acoustic networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Liu, Shu-Sheng,
+              Chang, Chia-Ming, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">OCEANS'11 MTS/IEEE KONA, pp. 1-5.</div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.23919/OCEANS.2011.6107247"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2011</span>
+            </div>
+            <div class="pub-title">
+              DSSS: A TDMA-based MAC protocol with Dynamic Slot Scheduling
+              Strategy for underwater acoustic sensor networks
+            </div>
+            <div class="pub-authors">
+              <span class="author-self">Chen, Yen-Da</span>, Lien, Chan-Ying,
+              Chuang, Sun-Wei, and Shih, Kuei-Ping
+            </div>
+            <div class="pub-venue">OCEANS 2011 IEEE - Spain, pp. 1-6.</div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/Oceans-Spain.2011.6003632"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2010 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2010</span>
+            </div>
+            <div class="pub-title">
+              Social network learning based on Blue-Red Trees inference and
+              analysis of Rule-Space Model
+            </div>
+            <div class="pub-authors">
+              Chen, Yung-Hui, <span class="author-self">Chen, Yen-Da</span>,
+              Lee, Chiou-Yng, Weng, Martin M., Yen, Neil Y., and Lu, Hui-Ju
+            </div>
+            <div class="pub-venue">
+              IET International Conference on Frontier Computing. Theory,
+              Technologies and Applications, pp. 312-317.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1049/cp.2010.0580"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2010</span>
+            </div>
+            <div class="pub-title">
+              Preserving Target Area Coverage in Wireless Sensor Networks by
+              Using Computational Geometry
+            </div>
+            <div class="pub-authors">
+              Wang, San-Yuan, Shih, Kuei-Ping,
+              <span class="author-self">Chen, Yen-Da</span>, and Ku, Hsin-Hui
+            </div>
+            <div class="pub-venue">
+              2010 IEEE Wireless Communication and Networking Conference (WCNC),
+              pp. 1-6.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WCNC.2010.5506575"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2010</span>
+            </div>
+            <div class="pub-title">
+              A Collision Avoidance Multi-channel MAC Protocol with Physical
+              Carrier Sensing for Mobile Ad Hoc Networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, <span class="author-self">Chen, Yen-Da</span>,
+              and Liu, Shu-Sheng
+            </div>
+            <div class="pub-venue">
+              2010 IEEE 24th International Conference on Advanced Information
+              Networking and Applications Workshops (WAINA), pp. 656-661.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WAINA.2010.58"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2009 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2009</span>
+            </div>
+            <div class="pub-title">
+              MRPC: A Multi-Rate Supported Power Control MAC Protocol for
+              Wireless Ad Hoc Networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, Chang, Chau-Chieh, and
+              <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              2009 IEEE Wireless Communications and Networking Conference
+              (WCNC), pp. 1-6.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WCNC.2009.4917812"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2009</span>
+            </div>
+            <div class="pub-title">
+              An intruder avoidance vulnerable path adjustment protocol for
+              wireless mobile sensor networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, Li, Chun-Chih, and
+              <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              2009 Joint Conferences on Pervasive Computing (JCPC), pp. 125-130.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/JCPC.2009.5420201"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2009</span>
+            </div>
+            <div class="pub-title">
+              Multiple-video-based E-learning Platform for Physical Education
+            </div>
+            <div class="pub-authors">
+              Huang, Chun-Hong, Won, T. L., Liu, Chun-Yeh,
+              <span class="author-self">Chen, Yen-Da</span>, and Chen, Yung-Hui
+            </div>
+            <div class="pub-venue">
+              2009 Joint Conferences on Pervasive Computing (JCPC), pp. 21-26.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/JCPC.2009.5420220"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2008 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2008</span>
+            </div>
+            <div class="pub-title">
+              A Fragmentation-Based Data Collision Free MAC Protocol with Power
+              Control for Wireless Ad Hoc Networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, Chang, Chau-Chieh, and
+              <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              2008 IEEE Wireless Communications and Networking Conference
+              (WCNC), pp. 1786-1791.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/WCNC.2008.318"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2006 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2006</span>
+            </div>
+            <div class="pub-title">
+              A Distributed Active Sensor Selection Scheme for Wireless Sensor
+              Networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, <span class="author-self">Chen, Yen-Da</span>,
+              Chiang, Chun-Wei, and Liu, Bo-Jun
+            </div>
+            <div class="pub-venue">
+              11th IEEE Symposium on Computers and Communications (ISCC'06), pp.
+              923-928.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ISCC.2006.7"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2005 -->
+          <li class="pub-item journal">
+            <div class="pub-meta">
+              <span class="badge-type journal">Journal</span>
+              <span class="pub-year">2005</span>
+            </div>
+            <div class="pub-title">
+              CAPC: a collision avoidance power control MAC protocol for
+              wireless ad hoc networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping and <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              IEEE Communications Letters, Vol. 9, No. 9, pp. 859-861.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/LCOMM.2005.1506727"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <!-- 2004 -->
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2004</span>
+            </div>
+            <div class="pub-title">
+              A distributed slots reservation protocol for QoS routing on
+              TDMA-based mobile ad hoc networks
+            </div>
+            <div class="pub-authors">
+              Shih, Kuei-Ping, Chang, Chih-Yung,
+              <span class="author-self">Chen, Yen-Da</span>, and Chuang,
+              Tsung-Han
+            </div>
+            <div class="pub-venue">
+              Proceedings. 2004 12th IEEE International Conference on Networks
+              (ICON 2004), pp. 660-664.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICON.2004.1409256"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+
+          <li class="pub-item conference">
+            <div class="pub-meta">
+              <span class="badge-type conference">Conference</span>
+              <span class="pub-year">2004</span>
+            </div>
+            <div class="pub-title">
+              AMNP: ad hoc multichannel negotiation protocol for multihop mobile
+              wireless networks
+            </div>
+            <div class="pub-authors">
+              Chen, Jenhui and <span class="author-self">Chen, Yen-Da</span>
+            </div>
+            <div class="pub-venue">
+              2004 IEEE International Conference on Communications (ICC), pp.
+              3607-3612.
+            </div>
+            <div class="pub-actions">
+              <a
+                href="https://doi.org/10.1109/ICC.2004.1313216"
+                target="_blank"
+                class="pub-link"
+                >DOI / IEEE Xplore ↗</a
+              >
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 聯絡方式 -->
+      <section id="contact">
+        <div class="section-header">
+          <h2 class="section-title">聯絡資訊 (Contact)</h2>
+        </div>
+        <div
+          style="
+            background: white;
+            padding: 1.8rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            line-height: 1.8;
+          "
+        >
+          <p>
+            <strong>個人信箱：</strong>
+            <a
+              href="mailto:your.email@university.edu"
+              style="color: var(--primary-light)"
+              >your.email@university.edu</a
+            >
+          </p>
+          <p><strong>研究室 / 辦公室：</strong> 請填入您的學校與辦公室位置</p>
+          <p>
+            <strong>外部主頁：</strong>
+            <a
+              href="https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=Yen-Da%20Chen"
+              target="_blank"
+              style="color: var(--primary-light)"
+              >IEEE Xplore Author Profile ↗</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; Yen-Da Chen. Powered by HTML5 &amp; CSS3.</p>
+    </footer>
+
+    <!-- 篩選器互動腳本 -->
+    <script>
+      function filterPubs(type) {
+        const buttons = document.querySelectorAll(".filter-btn");
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        event.target.classList.add("active");
+
+        const items = document.querySelectorAll(".pub-item");
+        items.forEach((item) => {
+          if (type === "all") {
+            item.style.display = "block";
+          } else if (item.classList.contains(type)) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
