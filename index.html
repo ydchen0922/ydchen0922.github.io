@@ -523,8 +523,8 @@
           padding: 1.75rem 1.25rem;
         }
         .profile-avatar {
-          width: 160px;
-          height: 190px;
+          width: 120px;
+          height: 120px;
         }
         .profile-info h1 {
           font-size: 1.55rem;
@@ -540,6 +540,244 @@
           font-size: 1.25rem;
         }
       }
+
+
+    /* ========================================================
+       新版視覺：暖橘、陽光感、俐落線條與向上動勢
+       保留原始內容與功能，僅重新整理視覺呈現
+       ======================================================== */
+    :root {
+      --primary: #c94f16;
+      --primary-light: #f07824;
+      --primary-accent: #f5a623;
+      --text-main: #202b36;
+      --text-muted: #5e6872;
+      --bg-body: #fffaf4;
+      --border-color: #f0dfcf;
+      --card-bg: #ffffff;
+      --badge-journal: #fff0df;
+      --badge-journal-text: #b94c16;
+      --badge-conf: #eaf3e8;
+      --badge-conf-text: #3e704b;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      color: var(--text-main);
+      background:
+        radial-gradient(ellipse at 8% 5%, rgba(255, 185, 106, .17), transparent 28rem),
+        radial-gradient(ellipse at 95% 32%, rgba(121, 164, 111, .10), transparent 24rem),
+        var(--bg-body);
+      font-family: Inter, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.75;
+    }
+    header {
+      background: rgba(255, 250, 244, .92);
+      border-bottom: 1px solid rgba(201, 79, 22, .14);
+      box-shadow: 0 5px 24px rgba(80, 48, 25, .045);
+    }
+    nav { max-width: 1120px; padding-top: 1rem; padding-bottom: 1rem; }
+    .nav-brand {
+      color: #a83d10;
+      font-size: 1.18rem;
+      letter-spacing: .015em;
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .nav-brand::before {
+      content: "";
+      display: inline-block;
+      width: 11px; height: 25px;
+      border-radius: 3px 10px 3px 10px;
+      background: linear-gradient(180deg, #ffb13b, #e45b1b);
+      transform: skew(-13deg);
+    }
+    .nav-links a {
+      color: #515b63;
+      font-weight: 650;
+      position: relative;
+      padding: .35rem 0;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; right: 100%; bottom: 0;
+      height: 3px; border-radius: 9px; background: var(--primary-light);
+      transition: right .2s ease;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a:hover::after { right: 0; }
+    main { max-width: 1120px; margin-top: 2.5rem; }
+
+    .profile-card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: linear-gradient(115deg, #fff 0%, #fff 58%, #fff3e5 100%);
+      border: 1px solid #f1d7c0;
+      border-radius: 20px 20px 20px 7px;
+      padding: 2.5rem;
+      box-shadow: 0 16px 42px rgba(137, 75, 34, .09);
+    }
+    .profile-card::before {
+      content: ""; position: absolute; z-index: -1;
+      width: 310px; height: 310px; right: -95px; top: -155px;
+      border: 34px solid rgba(245, 166, 35, .13);
+      border-radius: 50%;
+    }
+    .profile-card::after {
+      content: ""; position: absolute; z-index: -1;
+      left: 0; top: 0; bottom: 0; width: 8px;
+      background: linear-gradient(180deg, #ffbd4a, #ed6a22 70%, #5d9a66);
+    }
+    .profile-avatar {
+      width: 220px; height: 270px;
+      border-radius: 14px 14px 14px 4px;
+      border: 5px solid white;
+      box-shadow: 0 12px 28px rgba(116, 61, 26, .18);
+    }
+    .profile-info h1 {
+      color: #a83d10;
+      font-size: clamp(1.8rem, 3vw, 2.35rem);
+      letter-spacing: -.035em;
+      line-height: 1.25;
+    }
+    .profile-info .title {
+      color: #68716f;
+      font-weight: 650;
+      letter-spacing: .015em;
+    }
+    .profile-info .bio { color: #45515a; line-height: 1.9; }
+    .social-links { gap: .65rem; }
+    .badge-btn {
+      color: #a83d10;
+      background: #fff7ed;
+      border: 1px solid #f2c9a5;
+      border-radius: 7px 7px 7px 2px;
+      padding: .55rem .95rem;
+    }
+    .badge-btn:hover {
+      background: #e96820; border-color: #e96820; color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 16px rgba(220, 91, 28, .2);
+    }
+
+    section { margin-top: 4.2rem; }
+    .section-header {
+      border-bottom: 1px solid #e9cdb6;
+      position: relative;
+      padding-bottom: .9rem;
+    }
+    .section-header::after {
+      content: ""; position: absolute; left: 0; bottom: -2px;
+      width: 74px; height: 4px; border-radius: 5px;
+      background: linear-gradient(90deg, #e85e1d, #ffb13b);
+    }
+    .section-title {
+      color: #a83d10;
+      font-size: 1.55rem;
+      letter-spacing: -.02em;
+    }
+    .tags { gap: .65rem; }
+    .tag {
+      color: #a74619;
+      background: #fff0df;
+      border: 1px solid #f3d0ae;
+      border-radius: 5px 14px 5px 14px;
+      padding: .45rem .9rem;
+      font-weight: 650;
+    }
+    .tag:nth-child(even) {
+      color: #416d4a; background: #edf5e9; border-color: #d4e5d0;
+    }
+    .map-card, .pub-item, .project-item, .contact-card {
+      background: rgba(255,255,255,.94);
+      border: 1px solid #efdcc9;
+      border-radius: 12px 12px 12px 4px;
+      box-shadow: 0 7px 22px rgba(89, 57, 33, .055);
+    }
+    .map-card { padding: 1.15rem; }
+    .map-caption { color: #5b6469; font-weight: 550; }
+    #conference-map { border-radius: 8px 8px 8px 3px; }
+    .filter-btn {
+      color: #9b4a20;
+      border-color: #efc9a8;
+      background: #fffaf5;
+      border-radius: 5px 10px 5px 10px;
+      padding: .45rem .9rem;
+      font-weight: 650;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      color: #fff; background: #e96820; border-color: #e96820;
+    }
+    .pub-item, .project-item {
+      position: relative;
+      overflow: hidden;
+      padding: 1.45rem 1.6rem 1.45rem 1.8rem;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .pub-item::before, .project-item::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; background: linear-gradient(180deg, #f5a623, #e96820);
+    }
+    .pub-item:hover, .project-item:hover {
+      transform: translateY(-3px);
+      border-color: #e9b98f;
+      box-shadow: 0 13px 28px rgba(126, 73, 36, .10);
+    }
+    .badge-type.journal { background: #fff0df; color: #b94c16; }
+    .badge-type.conference { background: #edf5e9; color: #416d4a; }
+    .pub-year { color: #9b5a31; }
+    .pub-title { color: #25313a; font-weight: 700; }
+    .pub-authors { color: #58636a; }
+    .pub-authors .author-self { color: #b34a18; }
+    .pub-venue { color: #7b7770; }
+    .pub-link {
+      color: #a84416; border-color: #f0c8a6; background: #fff5eb;
+      border-radius: 5px 9px 5px 9px;
+    }
+    .pub-link:hover { color: #fff; background: #e96820; border-color: #e96820; }
+    .project-year {
+      color: #a84416; background: #fff1e2; border-color: #f1d0b2;
+    }
+    .project-category { color: #496b4d; background: #edf5e9; }
+    .project-funding { color: #b34a18; }
+    .contact-card { padding: 1.7rem; }
+    .contact-card a { color: #bd4e18 !important; font-weight: 700; }
+    footer {
+      margin-top: 4rem;
+      padding: 2.7rem 1rem;
+      color: #8a7666;
+      background: linear-gradient(90deg, #fff2e3, #fffaf4 55%, #eef5eb);
+      border-top: 1px solid #f0ddca;
+    }
+
+    @media (min-width: 640px) {
+      .profile-card { gap: 2.25rem; }
+    }
+    @media (max-width: 639px) {
+      nav { padding-left: 1rem; padding-right: 1rem; }
+      .nav-brand { font-size: 1.08rem; }
+      .menu-toggle {
+        color: #a84416; border-color: #efc9a8;
+        border-radius: 6px 10px 6px 10px; background: #fff5eb;
+      }
+      .nav-links {
+        background: rgba(255,250,244,.98);
+        border-bottom: 1px solid #efdcc9;
+      }
+      .profile-card { padding: 1.7rem 1.25rem; }
+      .profile-avatar { width: 150px; height: 175px; }
+      .profile-info h1 { font-size: 1.6rem; }
+      .social-links .badge-btn { flex: 1 1 calc(50% - .4rem); }
+      .section-title { font-size: 1.3rem; }
+      .pub-item, .project-item { padding: 1.2rem 1rem 1.2rem 1.25rem; }
+      .filter-buttons { max-width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+
     </style>
   </head>
   <body>
@@ -616,14 +854,14 @@
         <div class="section-header">
           <h2 class="section-title">學術著作 (Publications)</h2>
           <div class="filter-buttons">
-            <button class="filter-btn active" onclick="filterPubs('all')">
-              全部 (30)
+            <button class="filter-btn active" onclick="filterPubs('all', this)">
+              全部 (31)
             </button>
-            <button class="filter-btn" onclick="filterPubs('journal')">
+            <button class="filter-btn" onclick="filterPubs('journal', this)">
               期刊論文 (2)
             </button>
-            <button class="filter-btn" onclick="filterPubs('conference')">
-              會議論文 (28)
+            <button class="filter-btn" onclick="filterPubs('conference', this)">
+              會議論文 (29)
             </button>
           </div>
         </div>
@@ -1740,10 +1978,10 @@
       }
 
       // 2. 論文分類切換
-      function filterPubs(type) {
+      function filterPubs(type, clickedButton) {
         const buttons = document.querySelectorAll(".filter-btn");
         buttons.forEach((btn) => btn.classList.remove("active"));
-        event.target.classList.add("active");
+        clickedButton.classList.add("active");
 
         const items = document.querySelectorAll(".pub-item");
         items.forEach((item) => {
