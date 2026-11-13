@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <!-- Leaflet.js 地圖樣式庫 -->
@@ -18,18 +18,18 @@
     />
     <style>
       :root {
-        --primary: #1e3a8a;
-        --primary-light: #2563eb;
-        --primary-accent: #0284c7;
-        --text-main: #0f172a;
-        --text-muted: #475569;
-        --bg-body: #f8fafc;
-        --border-color: #e2e8f0;
+        --primary: #c94f16;
+        --primary-light: #f07824;
+        --primary-accent: #f5a623;
+        --text-main: #202b36;
+        --text-muted: #5e6872;
+        --bg-body: #fffaf4;
+        --border-color: #f0dfcf;
         --card-bg: #ffffff;
-        --badge-journal: #dbeafe;
-        --badge-journal-text: #1d4ed8;
-        --badge-conf: #f1f5f9;
-        --badge-conf-text: #475569;
+        --badge-journal: #fff0df;
+        --badge-journal-text: #b94c16;
+        --badge-conf: #fff3e0;
+        --badge-conf-text: #b45309;
       }
 
       * {
@@ -37,17 +37,28 @@
         margin: 0;
         padding: 0;
       }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 88px;
+      }
+
       body {
-        font-family:
-          "Inter",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
         color: var(--text-main);
-        background-color: var(--bg-body);
-        line-height: 1.6;
+        background:
+          radial-gradient(
+            ellipse at 8% 5%,
+            rgba(255, 185, 106, 0.17),
+            transparent 28rem
+          ),
+          radial-gradient(
+            ellipse at 95% 32%,
+            rgba(245, 166, 35, 0.11),
+            transparent 24rem
+          ),
+          var(--bg-body);
+        font-family: Inter, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+        line-height: 1.75;
         -webkit-text-size-adjust: 100%;
       }
 
@@ -55,39 +66,52 @@
       header {
         position: sticky;
         top: 0;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 250, 244, 0.92);
         backdrop-filter: blur(8px);
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid rgba(201, 79, 22, 0.14);
+        box-shadow: 0 5px 24px rgba(80, 48, 25, 0.045);
         z-index: 1000;
       }
       nav {
-        max-width: 960px;
+        max-width: 1120px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.9rem 1.25rem;
+        padding: 1rem 1.25rem;
         position: relative;
       }
       .nav-brand {
         font-weight: 700;
-        font-size: 1.25rem;
-        color: var(--primary);
+        font-size: 1.18rem;
+        color: #a83d10;
         text-decoration: none;
-        letter-spacing: -0.02em;
+        letter-spacing: 0.015em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
         z-index: 1001;
       }
+      .nav-brand::before {
+        content: "";
+        display: inline-block;
+        width: 11px;
+        height: 25px;
+        border-radius: 3px 10px 3px 10px;
+        background: linear-gradient(180deg, #ffb13b, #e45b1b);
+        transform: skew(-13deg);
+      }
 
-      /* 手機版漢堡按鈕 (預設隱藏，手機版顯示) */
+      /* 手機版漢堡按鈕 */
       .menu-toggle {
         display: none;
-        background: none;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
+        background: #fff5eb;
+        border: 1px solid #efc9a8;
+        border-radius: 6px 10px 6px 10px;
         padding: 0.4rem 0.6rem;
         font-size: 1.2rem;
         cursor: pointer;
-        color: var(--primary);
+        color: #a84416;
         line-height: 1;
         z-index: 1001;
       }
@@ -99,95 +123,267 @@
       .nav-links a {
         margin-left: 1.5rem;
         text-decoration: none;
-        color: var(--text-muted);
-        font-weight: 500;
+        color: #515b63;
+        font-weight: 650;
         font-size: 0.95rem;
+        position: relative;
+        padding: 0.35rem 0;
         transition: color 0.2s;
       }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 100%;
+        bottom: 0;
+        height: 3px;
+        border-radius: 9px;
+        background: var(--primary-light);
+        transition: right 0.2s ease;
+      }
       .nav-links a:hover {
-        color: var(--primary-light);
+        color: var(--primary);
+      }
+      .nav-links a:hover::after {
+        right: 0;
       }
 
       /* 主容器 */
       main {
-        max-width: 960px;
-        margin: 2rem auto;
+        max-width: 1120px;
+        margin: 2.2rem auto;
         padding: 0 1.25rem;
       }
 
-      /* 個人形象卡片 */
+      /* ========================================================
+         個人形象卡片 (融合「洋流」動態波紋與幾何光帶設計)
+         ======================================================== */
       .profile-card {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         gap: 1.75rem;
-        background: var(--card-bg);
-        padding: 2rem 1.5rem;
-        border-radius: 16px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+        background: linear-gradient(
+          115deg,
+          #d9480f 0%,
+          #ea580c 42%,
+          #f58220 82%,
+          #fb923c 100%
+        );
+        border: none;
+        border-radius: 22px;
+        padding: 2.2rem 1.6rem;
+        box-shadow: 0 18px 42px rgba(217, 72, 15, 0.28);
+        color: #ffffff;
       }
+
+      /* 橫幅背景：大型洋流曲線光帶 */
+      .profile-card::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 680px;
+        height: 680px;
+        right: -180px;
+        top: -280px;
+        border-radius: 44% 56% 62% 38% / 45% 42% 58% 55%;
+        border: 36px solid rgba(255, 255, 255, 0.12);
+        animation: currentSpin 24s linear infinite;
+        pointer-events: none;
+      }
+
+      .profile-card::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 780px;
+        height: 360px;
+        right: -140px;
+        bottom: -170px;
+        border-radius: 50%;
+        border-top: 26px solid rgba(255, 237, 213, 0.15);
+        border-bottom: 18px solid rgba(255, 255, 255, 0.08);
+        transform: rotate(-16deg);
+        pointer-events: none;
+      }
+
+      /* 底部洋流 SVG 波浪層 */
+      .ocean-current-bg {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.35;
+      }
+
+      /* 大頭照專屬：洋流旋渦與幾何外框容器 */
+      .avatar-current-wrapper {
+        position: relative;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      /* 照片後方傾斜的洋流幾何底板 */
+      .avatar-current-wrapper::before {
+        content: "";
+        position: absolute;
+        inset: 2px;
+        border-radius: 22px 6px 22px 6px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.45),
+          rgba(255, 237, 213, 0.08)
+        );
+        transform: rotate(-4.5deg);
+        z-index: 0;
+        transition: transform 0.35s ease;
+      }
+
+      /* 照片外圍流動的洋流虛線光環 */
+      .avatar-current-wrapper::after {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 26px 10px 26px 10px;
+        border: 2px dashed rgba(255, 255, 255, 0.5);
+        transform: rotate(3deg);
+        z-index: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease;
+      }
+
+      .avatar-current-wrapper:hover::before {
+        transform: rotate(-2deg) scale(1.03);
+      }
+
+      .avatar-current-wrapper:hover::after {
+        transform: rotate(6deg) scale(1.04);
+      }
+
       .profile-avatar {
-        width: 180px;
-        height: 230px;
-        border-radius: 12px;
+        position: relative;
+        z-index: 1;
+        width: 195px;
+        height: 235px;
+        border-radius: 18px 6px 18px 6px;
         object-fit: cover;
         object-position: center;
-        flex-shrink: 0;
-        border: 3px solid #ffffff;
-        box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+        border: 4px solid #ffffff;
+        box-shadow:
+          0 14px 30px rgba(124, 34, 6, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.3);
+        background-color: #fff;
+        transition: transform 0.3s ease;
       }
+
+      .avatar-current-wrapper:hover .profile-avatar {
+        transform: translateY(-3px);
+      }
+
+      @keyframes currentSpin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .profile-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        padding: 0.28rem 0.95rem;
+        border-radius: 999px;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+      }
+
       .profile-info h1 {
-        font-size: 1.85rem;
-        color: var(--primary);
-        margin-bottom: 0.25rem;
+        color: #ffffff;
+        font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 0.35rem;
+        text-shadow: 0 2px 10px rgba(154, 52, 18, 0.2);
       }
+
       .profile-info .title {
-        font-size: 1.05rem;
-        color: var(--text-muted);
-        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 1.08rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
       }
+
       .profile-info .bio {
-        margin: 0.85rem 0 1.2rem;
-        color: #334155;
-        font-size: 0.95rem;
+        margin: 1rem 0 1.4rem;
+        color: rgba(255, 255, 255, 0.94);
+        font-size: 0.96rem;
+        line-height: 1.85;
         text-align: justify;
       }
+
+      .profile-info .bio strong {
+        color: #ffffff;
+        font-weight: 700;
+      }
+
       .social-links {
         display: flex;
-        gap: 0.6rem;
+        gap: 0.7rem;
         flex-wrap: wrap;
         justify-content: center;
       }
+
       .badge-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.4rem;
-        padding: 0.45rem 0.85rem;
-        font-size: 0.85rem;
+        gap: 0.45rem;
+        padding: 0.52rem 1.15rem;
+        font-size: 0.88rem;
         font-weight: 600;
-        border-radius: 8px;
+        border-radius: 999px;
         text-decoration: none;
-        background: #f1f5f9;
-        color: var(--primary);
-        border: 1px solid var(--border-color);
-        transition: all 0.2s;
-      }
-      .badge-btn:hover {
-        background: var(--primary);
         color: #ffffff;
-        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(4px);
+        transition: all 0.2s ease;
       }
 
-      /* 電腦版 Profile 佈局 (橫向排列) */
+      .badge-btn:hover {
+        background: #ffffff;
+        color: #d94e0f;
+        border-color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(145, 45, 8, 0.25);
+      }
+
       @media (min-width: 640px) {
         .profile-card {
           flex-direction: row;
           text-align: left;
           align-items: center;
-          padding: 2.5rem;
+          padding: 2.75rem 3rem;
+          gap: 2.5rem;
         }
         .profile-info .bio {
           text-align: left;
@@ -199,15 +395,26 @@
 
       /* 區塊標題 */
       section {
-        margin-top: 3.5rem;
+        margin-top: 4rem;
       }
       .section-header {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
         margin-bottom: 1.5rem;
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 0.8rem;
+        border-bottom: 1px solid #e9cdb6;
+        position: relative;
+        padding-bottom: 0.9rem;
+      }
+      .section-header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 74px;
+        height: 4px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #e85e1d, #ffb13b);
       }
       @media (min-width: 640px) {
         .section-header {
@@ -217,39 +424,46 @@
         }
       }
       .section-title {
-        font-size: 1.45rem;
-        color: var(--primary);
+        color: #a83d10;
+        font-size: 1.55rem;
         font-weight: 700;
+        letter-spacing: -0.02em;
       }
 
       /* 研究關鍵字標籤 */
       .tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.65rem;
       }
       .tag {
-        background: #eff6ff;
-        color: #1d4ed8;
-        border: 1px solid #bfdbfe;
-        padding: 0.35rem 0.85rem;
-        border-radius: 999px;
+        color: #a74619;
+        background: #fff0df;
+        border: 1px solid #f3d0ae;
+        border-radius: 5px 14px 5px 14px;
+        padding: 0.45rem 0.9rem;
         font-size: 0.88rem;
-        font-weight: 500;
+        font-weight: 650;
+      }
+      .tag:nth-child(even) {
+        color: #9a3412;
+        background: #ffedd5;
+        border-color: #fed7aa;
       }
 
       /* 地圖容器樣式 */
       .map-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 1rem;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid #efdcc9;
+        border-radius: 12px 12px 12px 4px;
+        padding: 1.15rem;
         margin-bottom: 2rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        box-shadow: 0 7px 22px rgba(89, 57, 33, 0.055);
       }
       .map-caption {
         font-size: 0.88rem;
-        color: var(--text-muted);
+        color: #5b6469;
+        font-weight: 550;
         margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
@@ -259,11 +473,11 @@
       #conference-map {
         height: 380px;
         width: 100%;
-        border-radius: 8px;
+        border-radius: 8px 8px 8px 3px;
         z-index: 1;
       }
 
-      /* 篩選標籤按鈕 (支援手機橫向滑動) */
+      /* 篩選標籤按鈕 */
       .filter-buttons {
         display: flex;
         gap: 0.5rem;
@@ -272,50 +486,77 @@
         -webkit-overflow-scrolling: touch;
       }
       .filter-btn {
-        background: none;
-        border: 1px solid var(--border-color);
-        padding: 0.35rem 0.8rem;
-        border-radius: 6px;
+        color: #9b4a20;
+        border: 1px solid #efc9a8;
+        background: #fffaf5;
+        border-radius: 5px 10px 5px 10px;
+        padding: 0.45rem 0.9rem;
         font-size: 0.85rem;
-        font-weight: 500;
+        font-weight: 650;
         cursor: pointer;
-        color: var(--text-muted);
         white-space: nowrap;
         transition: all 0.2s;
       }
       .filter-btn.active,
       .filter-btn:hover {
-        background: var(--primary-light);
-        color: white;
-        border-color: var(--primary-light);
+        color: #fff;
+        background: #e96820;
+        border-color: #e96820;
       }
 
-      /* 論文列表 */
-      .pub-list {
+      /* 論文、計畫、獲獎共用卡片樣式 */
+      .pub-list,
+      .project-list,
+      .award-list {
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: 1.1rem;
+        gap: 1.05rem;
       }
-      .pub-item {
-        background: var(--card-bg);
-        padding: 1.25rem 1.4rem;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+
+      .pub-item,
+      .project-item,
+      .award-item {
+        position: relative;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid #efdcc9;
+        border-radius: 12px 12px 12px 4px;
+        padding: 1.45rem 1.6rem 1.45rem 1.8rem;
+        box-shadow: 0 7px 22px rgba(89, 57, 33, 0.055);
         transition:
-          transform 0.15s ease,
-          box-shadow 0.15s ease;
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
       }
-      @media (min-width: 640px) {
-        .pub-item {
-          padding: 1.35rem 1.6rem;
-        }
+
+      .pub-item::before,
+      .project-item::before,
+      .award-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #f5a623, #e96820);
       }
-      .pub-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+
+      .award-item.award-best::before {
+        background: linear-gradient(180deg, #f59e0b, #d97706);
       }
+      .award-item.award-excellent::before {
+        background: linear-gradient(180deg, #d97706, #b45309);
+      }
+
+      .pub-item:hover,
+      .project-item:hover,
+      .award-item:hover {
+        transform: translateY(-3px);
+        border-color: #e9b98f;
+        box-shadow: 0 13px 28px rgba(126, 73, 36, 0.1);
+      }
+
       .pub-meta {
         display: flex;
         align-items: center;
@@ -331,41 +572,41 @@
         letter-spacing: 0.04em;
       }
       .badge-type.journal {
-        background-color: var(--badge-journal);
-        color: var(--badge-journal-text);
+        background: #fff0df;
+        color: #b94c16;
       }
       .badge-type.conference {
-        background-color: var(--badge-conf);
-        color: var(--badge-conf-text);
+        background: #ffedd5;
+        color: #9a3412;
       }
       .pub-year {
         font-size: 0.85rem;
         font-weight: 600;
-        color: var(--text-muted);
+        color: #9b5a31;
       }
       .pub-title {
         font-size: 1.05rem;
-        font-weight: 600;
-        color: #0f172a;
+        font-weight: 700;
+        color: #25313a;
         line-height: 1.45;
         margin-bottom: 0.35rem;
         word-break: break-word;
       }
       .pub-authors {
         font-size: 0.92rem;
-        color: #475569;
+        color: #58636a;
         margin-bottom: 0.3rem;
         word-break: break-word;
       }
       .pub-authors .author-self {
         font-weight: 700;
-        color: var(--primary);
+        color: #b34a18;
         text-decoration: underline;
         text-underline-offset: 2px;
       }
       .pub-venue {
         font-size: 0.88rem;
-        color: #64748b;
+        color: #7b7770;
         font-style: italic;
         margin-bottom: 0.65rem;
       }
@@ -379,44 +620,20 @@
         gap: 0.3rem;
         font-size: 0.8rem;
         font-weight: 600;
-        color: var(--primary-light);
+        color: #a84416;
         text-decoration: none;
-        border: 1px solid #bfdbfe;
-        background: #eff6ff;
+        border: 1px solid #f0c8a6;
+        background: #fff5eb;
         padding: 0.3rem 0.65rem;
-        border-radius: 6px;
+        border-radius: 5px 9px 5px 9px;
         transition: all 0.2s;
       }
       .pub-link:hover {
-        background: var(--primary-light);
-        color: white;
-        border-color: var(--primary-light);
+        color: #fff;
+        background: #e96820;
+        border-color: #e96820;
       }
 
-      /* 執行計畫 & 獲獎樣式 */
-      .project-list,
-      .award-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .project-item,
-      .award-item {
-        background: var(--card-bg);
-        padding: 1.25rem 1.4rem;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-        transition:
-          transform 0.15s ease,
-          box-shadow 0.15s ease;
-      }
-      .project-item:hover,
-      .award-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      }
       .project-header,
       .award-header {
         display: flex;
@@ -444,9 +661,9 @@
       .award-year {
         font-size: 0.82rem;
         font-weight: 700;
-        color: var(--primary);
-        background: #eff6ff;
-        border: 1px solid #bfdbfe;
+        color: #a84416;
+        background: #fff1e2;
+        border: 1px solid #f1d0b2;
         padding: 0.2rem 0.55rem;
         border-radius: 6px;
         white-space: nowrap;
@@ -455,426 +672,10 @@
       .award-badge {
         font-size: 0.78rem;
         font-weight: 700;
-        color: #475569;
-        background: #f1f5f9;
+        color: #9a3412;
+        background: #ffedd5;
         padding: 0.2rem 0.55rem;
         border-radius: 6px;
-      }
-      .project-funding,
-      .award-date {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #0369a1;
-      }
-      .project-title,
-      .award-paper-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--text-main);
-        line-height: 1.5;
-        word-break: break-word;
-      }
-      .award-conf {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin-top: 0.3rem;
-        font-style: italic;
-      }
-
-      /* 聯絡資訊卡片 */
-      .contact-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        line-height: 1.8;
-        word-break: break-word;
-      }
-      @media (min-width: 640px) {
-        .contact-card {
-          padding: 1.8rem;
-        }
-      }
-
-      footer {
-        text-align: center;
-        padding: 3rem 1rem 2rem;
-        color: #94a3b8;
-        font-size: 0.85rem;
-      }
-
-      /* ========================================================
-         手機版專屬響應式優化 (Mobile Media Queries < 640px)
-         ======================================================== */
-      @media (max-width: 639px) {
-        .menu-toggle {
-          display: block; /* 顯示手機版漢堡按鈕 */
-        }
-        .nav-links {
-          display: none; /* 預設收合 */
-          position: absolute;
-          top: 100%;
-          left: 0;
-          width: 100%;
-          background: rgba(255, 255, 255, 0.98);
-          backdrop-filter: blur(10px);
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 1rem 1.25rem;
-          border-bottom: 1px solid var(--border-color);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-          gap: 0.85rem;
-        }
-        .nav-links.open {
-          display: flex; /* 點擊漢堡按鈕後展開 */
-        }
-        .nav-links a {
-          margin-left: 0;
-          font-size: 1.05rem;
-          width: 100%;
-          padding: 0.3rem 0;
-        }
-
-        .profile-card {
-          padding: 1.75rem 1.25rem;
-        }
-        .profile-avatar {
-          width: 120px;
-          height: 120px;
-        }
-        .profile-info h1 {
-          font-size: 1.55rem;
-        }
-        .social-links .badge-btn {
-          flex: 1 1 calc(50% - 0.4rem); /* 手機上按鈕並排或均分 */
-        }
-
-        #conference-map {
-          height: 280px; /* 手機端地圖高度微縮，瀏覽體驗更順暢 */
-        }
-        .section-title {
-          font-size: 1.25rem;
-        }
-      }
-
-      /* ========================================================
-       新版視覺：暖橘、陽光感、俐落線條與向上動勢
-       保留原始內容與功能，僅重新整理視覺呈現
-       ======================================================== */
-      :root {
-        --primary: #c94f16;
-        --primary-light: #f07824;
-        --primary-accent: #f5a623;
-        --text-main: #202b36;
-        --text-muted: #5e6872;
-        --bg-body: #fffaf4;
-        --border-color: #f0dfcf;
-        --card-bg: #ffffff;
-        --badge-journal: #fff0df;
-        --badge-journal-text: #b94c16;
-        --badge-conf: #fff3e0;
-        --badge-conf-text: #b45309;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 88px;
-      }
-      body {
-        color: var(--text-main);
-        background:
-          radial-gradient(
-            ellipse at 8% 5%,
-            rgba(255, 185, 106, 0.17),
-            transparent 28rem
-          ),
-          radial-gradient(
-            ellipse at 95% 32%,
-            rgba(245, 166, 35, 0.11),
-            transparent 24rem
-          ),
-          var(--bg-body);
-        font-family: Inter, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-        line-height: 1.75;
-      }
-      header {
-        background: rgba(255, 250, 244, 0.92);
-        border-bottom: 1px solid rgba(201, 79, 22, 0.14);
-        box-shadow: 0 5px 24px rgba(80, 48, 25, 0.045);
-      }
-      nav {
-        max-width: 1120px;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-      }
-      .nav-brand {
-        color: #a83d10;
-        font-size: 1.18rem;
-        letter-spacing: 0.015em;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.65rem;
-      }
-      .nav-brand::before {
-        content: "";
-        display: inline-block;
-        width: 11px;
-        height: 25px;
-        border-radius: 3px 10px 3px 10px;
-        background: linear-gradient(180deg, #ffb13b, #e45b1b);
-        transform: skew(-13deg);
-      }
-      .nav-links a {
-        color: #515b63;
-        font-weight: 650;
-        position: relative;
-        padding: 0.35rem 0;
-      }
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 100%;
-        bottom: 0;
-        height: 3px;
-        border-radius: 9px;
-        background: var(--primary-light);
-        transition: right 0.2s ease;
-      }
-      .nav-links a:hover {
-        color: var(--primary);
-      }
-      .nav-links a:hover::after {
-        right: 0;
-      }
-      main {
-        max-width: 1120px;
-        margin-top: 2.5rem;
-      }
-
-      .profile-card {
-        position: relative;
-        overflow: hidden;
-        isolation: isolate;
-        background: linear-gradient(115deg, #fff 0%, #fff 58%, #fff3e5 100%);
-        border: 1px solid #f1d7c0;
-        border-radius: 20px 20px 20px 7px;
-        padding: 2.5rem;
-        box-shadow: 0 16px 42px rgba(137, 75, 34, 0.09);
-      }
-      .profile-card::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        width: 310px;
-        height: 310px;
-        right: -95px;
-        top: -155px;
-        border: 34px solid rgba(245, 166, 35, 0.13);
-        border-radius: 50%;
-      }
-      .profile-card::after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 8px;
-        background: linear-gradient(180deg, #ffbd4a, #ed6a22 70%, #d97706);
-      }
-      .profile-avatar {
-        width: 220px;
-        height: 270px;
-        border-radius: 14px 14px 14px 4px;
-        border: 5px solid white;
-        box-shadow: 0 12px 28px rgba(116, 61, 26, 0.18);
-      }
-      .profile-info h1 {
-        color: #a83d10;
-        font-size: clamp(1.8rem, 3vw, 2.35rem);
-        letter-spacing: -0.035em;
-        line-height: 1.25;
-      }
-      .profile-info .title {
-        color: #68716f;
-        font-weight: 650;
-        letter-spacing: 0.015em;
-      }
-      .profile-info .bio {
-        color: #45515a;
-        line-height: 1.9;
-      }
-      .social-links {
-        gap: 0.65rem;
-      }
-      .badge-btn {
-        color: #a83d10;
-        background: #fff7ed;
-        border: 1px solid #f2c9a5;
-        border-radius: 7px 7px 7px 2px;
-        padding: 0.55rem 0.95rem;
-      }
-      .badge-btn:hover {
-        background: #e96820;
-        border-color: #e96820;
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 7px 16px rgba(220, 91, 28, 0.2);
-      }
-
-      section {
-        margin-top: 4.2rem;
-      }
-      .section-header {
-        border-bottom: 1px solid #e9cdb6;
-        position: relative;
-        padding-bottom: 0.9rem;
-      }
-      .section-header::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -2px;
-        width: 74px;
-        height: 4px;
-        border-radius: 5px;
-        background: linear-gradient(90deg, #e85e1d, #ffb13b);
-      }
-      .section-title {
-        color: #a83d10;
-        font-size: 1.55rem;
-        letter-spacing: -0.02em;
-      }
-      .tags {
-        gap: 0.65rem;
-      }
-      .tag {
-        color: #a74619;
-        background: #fff0df;
-        border: 1px solid #f3d0ae;
-        border-radius: 5px 14px 5px 14px;
-        padding: 0.45rem 0.9rem;
-        font-weight: 650;
-      }
-      .tag:nth-child(even) {
-        color: #9a3412;
-        background: #ffedd5;
-        border-color: #fed7aa;
-      }
-      .map-card,
-      .pub-item,
-      .project-item,
-      .award-item,
-      .contact-card {
-        background: rgba(255, 255, 255, 0.94);
-        border: 1px solid #efdcc9;
-        border-radius: 12px 12px 12px 4px;
-        box-shadow: 0 7px 22px rgba(89, 57, 33, 0.055);
-      }
-      .map-card {
-        padding: 1.15rem;
-      }
-      .map-caption {
-        color: #5b6469;
-        font-weight: 550;
-      }
-      #conference-map {
-        border-radius: 8px 8px 8px 3px;
-      }
-      .filter-btn {
-        color: #9b4a20;
-        border-color: #efc9a8;
-        background: #fffaf5;
-        border-radius: 5px 10px 5px 10px;
-        padding: 0.45rem 0.9rem;
-        font-weight: 650;
-      }
-      .filter-btn.active,
-      .filter-btn:hover {
-        color: #fff;
-        background: #e96820;
-        border-color: #e96820;
-      }
-      .pub-item,
-      .project-item,
-      .award-item {
-        position: relative;
-        overflow: hidden;
-        padding: 1.45rem 1.6rem 1.45rem 1.8rem;
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          border-color 0.2s ease;
-      }
-      .pub-item::before,
-      .project-item::before,
-      .award-item::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, #f5a623, #e96820);
-      }
-      .award-item.award-best::before {
-        background: linear-gradient(180deg, #f59e0b, #d97706);
-      }
-      .award-item.award-excellent::before {
-        background: linear-gradient(180deg, #d97706, #b45309);
-      }
-      .pub-item:hover,
-      .project-item:hover,
-      .award-item:hover {
-        transform: translateY(-3px);
-        border-color: #e9b98f;
-        box-shadow: 0 13px 28px rgba(126, 73, 36, 0.1);
-      }
-      .badge-type.journal {
-        background: #fff0df;
-        color: #b94c16;
-      }
-      .badge-type.conference {
-        background: #ffedd5;
-        color: #9a3412;
-      }
-      .pub-year {
-        color: #9b5a31;
-      }
-      .pub-title {
-        color: #25313a;
-        font-weight: 700;
-      }
-      .pub-authors {
-        color: #58636a;
-      }
-      .pub-authors .author-self {
-        color: #b34a18;
-      }
-      .pub-venue {
-        color: #7b7770;
-      }
-      .pub-link {
-        color: #a84416;
-        border-color: #f0c8a6;
-        background: #fff5eb;
-        border-radius: 5px 9px 5px 9px;
-      }
-      .pub-link:hover {
-        color: #fff;
-        background: #e96820;
-        border-color: #e96820;
-      }
-      .project-year,
-      .award-year {
-        color: #a84416;
-        background: #fff1e2;
-        border-color: #f1d0b2;
-      }
-      .project-category {
-        color: #9a3412;
-        background: #ffedd5;
       }
       .award-badge.best {
         color: #b45309;
@@ -888,37 +689,53 @@
       }
       .project-funding,
       .award-date {
+        font-size: 0.85rem;
+        font-weight: 600;
         color: #b34a18;
       }
+      .project-title,
       .award-paper-title {
-        color: #25313a;
+        font-size: 1rem;
         font-weight: 700;
+        color: #25313a;
+        line-height: 1.5;
+        word-break: break-word;
       }
       .award-conf {
-        color: #6c6862;
-        font-style: normal;
         font-size: 0.92rem;
+        color: #6c6862;
+        margin-top: 0.3rem;
+        font-style: normal;
       }
+
+      /* 聯絡資訊卡片 */
       .contact-card {
+        background: rgba(255, 255, 255, 0.94);
         padding: 1.7rem;
+        border-radius: 12px 12px 12px 4px;
+        border: 1px solid #efdcc9;
+        box-shadow: 0 7px 22px rgba(89, 57, 33, 0.055);
+        line-height: 1.8;
+        word-break: break-word;
       }
       .contact-card a {
         color: #bd4e18 !important;
         font-weight: 700;
       }
+
       footer {
+        text-align: center;
         margin-top: 4rem;
         padding: 2.7rem 1rem;
         color: #8a7666;
+        font-size: 0.85rem;
         background: linear-gradient(90deg, #fff2e3, #fffaf4 55%, #ffedd5);
         border-top: 1px solid #f0ddca;
       }
 
-      @media (min-width: 640px) {
-        .profile-card {
-          gap: 2.25rem;
-        }
-      }
+      /* ========================================================
+         手機版專屬響應式優化 (< 640px)
+         ======================================================== */
       @media (max-width: 639px) {
         nav {
           padding-left: 1rem;
@@ -928,27 +745,50 @@
           font-size: 1.08rem;
         }
         .menu-toggle {
-          color: #a84416;
-          border-color: #efc9a8;
-          border-radius: 6px 10px 6px 10px;
-          background: #fff5eb;
+          display: block;
         }
         .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
           background: rgba(255, 250, 244, 0.98);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1rem 1.25rem;
           border-bottom: 1px solid #efdcc9;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+          gap: 0.85rem;
         }
+        .nav-links.open {
+          display: flex;
+        }
+        .nav-links a {
+          margin-left: 0;
+          font-size: 1.05rem;
+          width: 100%;
+          padding: 0.3rem 0;
+        }
+
         .profile-card {
-          padding: 1.7rem 1.25rem;
+          padding: 1.8rem 1.25rem;
+          border-radius: 18px;
         }
         .profile-avatar {
-          width: 150px;
-          height: 175px;
+          width: 155px;
+          height: 185px;
         }
         .profile-info h1 {
-          font-size: 1.6rem;
+          font-size: 1.65rem;
         }
         .social-links .badge-btn {
           flex: 1 1 calc(50% - 0.4rem);
+        }
+
+        #conference-map {
+          height: 280px;
         }
         .section-title {
           font-size: 1.3rem;
@@ -962,6 +802,7 @@
           max-width: 100%;
         }
       }
+
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
@@ -970,6 +811,7 @@
         *::before,
         *::after {
           transition-duration: 0.01ms !important;
+          animation: none !important;
         }
       }
     </style>
@@ -999,10 +841,47 @@
     </header>
 
     <main>
-      <!-- 個人簡介區塊 -->
+      <!-- 個人簡介區塊 (暖橘滿版橫幅 + 洋流波紋幾何相框) -->
       <section id="about" class="profile-card">
-        <img src="gigigi.jpg" alt="陳彥達 Yen-Da Chen" class="profile-avatar" />
+        <!-- 背景洋流波浪線條 SVG -->
+        <svg
+          class="ocean-current-bg"
+          viewBox="0 0 1200 400"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M-50,320 C220,180 480,410 780,250 C980,145 1120,210 1260,130"
+            fill="none"
+            stroke="rgba(255,255,255,0.45)"
+            stroke-width="3"
+          />
+          <path
+            d="M-50,360 C260,230 520,440 840,290 C1020,205 1150,250 1260,180"
+            fill="none"
+            stroke="rgba(255,255,255,0.28)"
+            stroke-width="2"
+          />
+          <path
+            d="M-50,280 C180,140 420,350 720,190 C920,85 1080,160 1260,80"
+            fill="none"
+            stroke="rgba(255,237,213,0.22)"
+            stroke-width="1.5"
+            stroke-dasharray="8 8"
+          />
+        </svg>
+
+        <!-- 帶有洋流幾何交錯邊框的大頭照 -->
+        <div class="avatar-current-wrapper">
+          <img
+            src="gigigi.jpg"
+            alt="陳彥達 Yen-Da Chen"
+            class="profile-avatar"
+          />
+        </div>
+
         <div class="profile-info">
+          <div class="profile-eyebrow">RESEARCH IN MOTION / 研究持續向前</div>
           <h1>陳彥達 (Yen-Da Chen)</h1>
           <p class="title">研究學者 / 通訊與分散式網路研究領域</p>
           <p class="bio">
@@ -1916,7 +1795,7 @@
 
         <ul class="project-list">
           <!-- 教育部計畫 -->
-          <li class="project-item pi" style="border-left: 4px solid #2563eb">
+          <li class="project-item pi">
             <div class="project-header">
               <div class="project-badges">
                 <span class="project-year">教育部計畫</span>
@@ -2411,25 +2290,6 @@
         });
       }
 
-      // 2.5 執行計畫分類切換
-      function filterProjects(type, clickedButton) {
-        const container = clickedButton.closest(".filter-buttons");
-        const buttons = container.querySelectorAll(".filter-btn");
-        buttons.forEach((btn) => btn.classList.remove("active"));
-        clickedButton.classList.add("active");
-
-        const items = document.querySelectorAll(".project-item");
-        items.forEach((item) => {
-          if (type === "all") {
-            item.style.display = "block";
-          } else if (item.classList.contains(type)) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
-        });
-      }
-
       // 3. 獲獎紀錄分類切換
       function filterAwards(type, clickedButton) {
         const container = clickedButton.closest(".filter-buttons");
@@ -2579,7 +2439,6 @@
             detail:
               "<b>IEEE AINA 2017</b><br>Full-View Area Coverage by Rotatable Cameras in WSN",
           },
-
           {
             city: "西班牙巴塞隆納 (Barcelona, Spain)",
             lat: 41.3874,
